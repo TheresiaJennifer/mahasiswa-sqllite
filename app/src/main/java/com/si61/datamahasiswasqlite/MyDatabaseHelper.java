@@ -27,9 +27,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME + " (" +
                 FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                FIELD_NPM + "CHAR(10), " +
-                FIELD_NAMA + "VARCHAR(50), " +
-                FIELD_PRODI + "VARCHAR(75)" +
+                FIELD_NPM + " CHAR(10), " +
+                FIELD_NAMA + " VARCHAR(50), " +
+                FIELD_PRODI + " VARCHAR(75)" +
                 ");"
                 ;
         db.execSQL(query);
@@ -66,7 +66,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return varCursor;
     }
 
-    public long ubahData (int id, String npm, String nama, String prodi) {
+    public long ubahData (String id, String npm, String nama, String prodi) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -74,14 +74,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         cv.put(FIELD_NAMA, nama);
         cv.put(FIELD_PRODI, prodi);
 
-        long eksekusi = db.update(TABLE_NAME, cv, "id = ?", new String[id]);
+        long eksekusi = db.update(TABLE_NAME, cv, "id = ?", new String[]{id});
         return eksekusi;
     }
 
-    public long hapusData (int id, String npm, String nama, String prodi) {
+    public long hapusData (String id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        long eksekusi = db.delete(TABLE_NAME, "id = ?", new String[id]);
+        long eksekusi = db.delete(TABLE_NAME, "id = ?", new String[]{id});
         return eksekusi;
     }
 
